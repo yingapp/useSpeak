@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 export default function useSpeak() {
-    const [voices, setVoices] = useState([])
+    const [voices, setVoices] = useState()
     const [speaking, setSpeaking] = useState()
     const [paused, setPaused] = useState()
     const ssuRef = useRef()
@@ -58,6 +58,7 @@ export default function useSpeak() {
         if (ssuRef.current) ssuRef.current.rate = rate//无效
     }
     useEffect(() => {
+        if (!window.speechSynthesis) return
         const voicesChanged = () => {
             const voices = speechSynthesis.getVoices()
             setVoices(voices)
